@@ -1,0 +1,13 @@
+# Monocular Depth Estimation - CPU Dependencies
+# For GPU support, use: requirements-gpu.txt
+
+# Deep Learning (CPU-only)
+torch>=2.0.0
+torchvision>=0.15.0
+timm>=0.9.0
+
+# Computer Vision
+opencv-python>=4.8.0
+
+# NumPy <2 required for ROS 2 Humble cv_bridge compatibility
+numpy>=1.24.0,<2.0.0

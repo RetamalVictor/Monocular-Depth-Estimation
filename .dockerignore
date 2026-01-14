@@ -1,0 +1,32 @@
+# Build artifacts
+ros_ws/build/
+ros_ws/install/
+ros_ws/log/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Assets (optional - uncomment to exclude sample images)
+# assets/
+
+# Misc
+*.log
+.DS_Store

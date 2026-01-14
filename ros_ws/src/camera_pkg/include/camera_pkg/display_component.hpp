@@ -16,7 +16,7 @@ namespace camera_composition
             explicit DisplayComponent(const rclcpp::NodeOptions& options) : Node("display", options)
             {
                 std::string topic_name = "camera/depth_map";
-                subcription_m = this->create_subscription<sensor_msgs::msg::Image>(topic_name, 10, std::bind(&DisplayComponent::callback, this, _1));
+                subscription_m = this->create_subscription<sensor_msgs::msg::Image>(topic_name, 10, std::bind(&DisplayComponent::callback, this, _1));
             }
 
             void callback(const sensor_msgs::msg::Image::UniquePtr msg);
@@ -24,7 +24,7 @@ namespace camera_composition
      
         private:
         cv::Mat frame_m;
-        rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subcription_m;
+        rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription_m;
     };
 }
 #endif

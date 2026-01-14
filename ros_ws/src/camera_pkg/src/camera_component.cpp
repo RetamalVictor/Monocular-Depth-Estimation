@@ -21,16 +21,18 @@ namespace camera_composition
 
     void CameraComponent::callback()
     {
-        while (rclcpp::ok())
+        while (rclcpp::ok() && running_)
         {
             cap_m >> frame_m;
-            if (frame_m.empty()){
+            if (frame_m.empty()) {
+                RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000, "Empty frame received");
                 continue;
             }
 
-            sensor_msgs::msg::Image::UniquePtr msg(new sensor_msgs::msg::Image());
+            auto msg = std::make_unique<sensor_msgs::msg::Image>();
 
-            // Pack the OpenCV image into the ROS image.
+            // Pack the OpenCV image into the ROS image
+            msg->header.stamp = now();
             msg->header.frame_id = "camera_frame";
             msg->height = frame_m.rows;
             msg->width = frame_m.cols;
@@ -38,9 +40,8 @@ namespace camera_composition
             msg->is_bigendian = false;
             msg->step = static_cast<sensor_msgs::msg::Image::_step_type>(frame_m.step);
             msg->data.assign(frame_m.datastart, frame_m.dataend);
-            
-            publisher_m->publish(std::move(msg));
 
+            publisher_m->publish(std::move(msg));
         }
     }
 }
